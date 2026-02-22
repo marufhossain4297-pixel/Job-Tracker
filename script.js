@@ -20,6 +20,7 @@ console.log(allCardSection.children.length)
 function calculateCount() {
     total.innerText = allCardSection.children.length;
     availableJobs.innerText = allCardSection.children.length;
+    
     interview.innerText = interviewList.length
     rejected.innerText = rejectedList.length
 }
