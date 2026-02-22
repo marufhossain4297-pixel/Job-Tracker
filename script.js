@@ -20,6 +20,8 @@ console.log(allCardSection.children.length)
 function calculateCount() {
     total.innerText = allCardSection.children.length;
     availableJobs.innerText = allCardSection.children.length;
+    interview.innerText = interviewList.length
+    rejected.innerText = rejectedList.length
 }
 calculateCount()
 
@@ -55,8 +57,7 @@ mainContainer.addEventListener('click', function (event) {
         const work = parentNode.querySelector('.work').innerText
         const statusBar = parentNode.querySelector('.status-bar').innerText
         const note = parentNode.querySelector('.note').innerText
-        const statusBarStyle = parentNode.querySelector('.status-bar').innerText = 'INTERVIEW'
-        statusBarStyle.style.backGroundColor = 'red'
+        parentNode.querySelector('.status-bar').innerText = 'INTERVIEW'
         // console.log(companyName, position, work, statusBar, note)
 
 
