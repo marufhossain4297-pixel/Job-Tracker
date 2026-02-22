@@ -1,5 +1,7 @@
 let interviewList = [];
 let rejectedList = []
+let currentStatus = 'all-btn'
+
 const filterSection = document.getElementById('filter-section')
 const noJobs = document.getElementById('no-jobs')
 
@@ -36,16 +38,25 @@ function toggleStyle(id) {
     rejectedBtn.classList.remove('bg-[#3B82F6]', 'text-white')
 
     const selected = document.getElementById(id)
+    currentStatus = id
+
+
     selected.classList.remove('bg-white', 'text-[#64748B]')
     selected.classList.add('bg-[#3B82F6]', 'text-white')
 
-    if(id == 'interview-btn'){
+    if (id == 'interview-btn') {
         allCardSection.classList.add('hidden')
         filterSection.classList.remove('hidden')
+        renderInterview()
     }
-    else if(id == 'all-btn'){
+    else if (id == 'all-btn') {
         allCardSection.classList.remove('hidden')
         filterSection.classList.add('hidden')
+    }
+    else if (id == 'rejected-btn') {
+        allCardSection.classList.add('hidden')
+        filterSection.classList.remove('hidden')
+        renderReject()
     }
 }
 
@@ -57,7 +68,13 @@ mainContainer.addEventListener('click', function (event) {
         const work = parentNode.querySelector('.work').innerText
         const statusBar = parentNode.querySelector('.status-bar').innerText
         const note = parentNode.querySelector('.note').innerText
-        parentNode.querySelector('.status-bar').innerText = 'INTERVIEW'
+        const statusEl = parentNode.querySelector('.status-bar')
+        statusEl.innerText = 'INTERVIEW'
+        // remove old colors
+        statusEl.classList.remove('bg-[#EEF4FF]', 'bg-red-100', 'text-red-600', 'px-3', 'py-2')
+
+        // add green
+        statusEl.classList.add('bg-[#EBFDF5]', 'text-[#11B981]', 'border', 'border-[#11B981]','w-[68.945px]', 'text-center', 'py-[4px]', 'font-semibold')
         // console.log(companyName, position, work, statusBar, note)
 
 
@@ -74,25 +91,80 @@ mainContainer.addEventListener('click', function (event) {
         if (!companyExist) {
             interviewList.push(cardInfo)
         }
+
+        rejectedList = rejectedList.filter(item => item.companyName != cardInfo.companyName)
         calculateCount()
-        renderInterview()
+
+        if (currentStatus == 'rejected-btn') {
+            renderReject()
+        }
+    }
+
+
+    else if (event.target.classList.contains('reject-btn')) {
+        const companyName = parentNode.querySelector('.company-name').innerText
+        const position = parentNode.querySelector('.position').innerText
+        const work = parentNode.querySelector('.work').innerText
+        const statusBar = parentNode.querySelector('.status-bar').innerText
+        const note = parentNode.querySelector('.note').innerText
+        const statusEl = parentNode.querySelector('.status-bar')
+
+        statusEl.innerText = 'REJECTED'
+
+        // remove old colors
+        statusEl.classList.remove('bg-[#EEF4FF]', 'bg-green-100', 'text-green-600')
+
+        // add red
+        statusEl.classList.add('bg-red-100', 'text-red-600')
+        // console.log(companyName, position, work, statusBar, note)
+
+
+        const cardInfo = {
+            companyName,
+            position,
+            work,
+            statusBar: 'REJECTED',
+            note
+        }
+
+        const companyExist = rejectedList.find(item => item.companyName == cardInfo.companyName)
+
+        if (!companyExist) {
+            rejectedList.push(cardInfo)
+        }
+
+        interviewList = interviewList.filter(item => item.companyName != cardInfo.companyName)
+        calculateCount()
+
+        if (currentStatus == 'interview-btn') {
+            renderInterview()
+        }
     }
 })
 
 
-if(filterSection != ''){
-    noJobs.classList.remove('hidden')
-}
+// if (filterSection != '') {
+//     noJobs.classList.remove('hidden')
+// }
 
 function renderInterview() {
     filterSection.innerHTML = ''
-
+    if (interviewList.length == 0) {
+        filterSection.innerHTML = `
+        <div id="no-jobs" class="text-center justify-self-center w-full border h bg-white border-[#E6E7E9] border-dashed py-[110px] rounded-2xl">
+                <img class="justify-self-center" src="./jobs.png" alt="">
+                <p class="text-[24px]  text-[#002C5C] font-semibold">No jobs available</p>
+                <p class="text-[#64748B]">Check back soon for new job opportunities</p>
+            </div>
+        `
+    }
     for (let interview of interviewList) {
         console.log(interview)
         let div = document.createElement('div')
         div.className = 'flex justify-between border border-[#E6E7E9] rounded-lg p-6 '
         div.innerHTML = `
-        <div class="space-y-5">
+        <div class= "flex justify-between w-full">
+            <div class="space-y-5 ">
                     <!-- part 1 -->
                     <div>
                         <p class="company-name text-[18px] font-semibold text-[#002C5C]">${interview.companyName}</p>
@@ -120,6 +192,79 @@ function renderInterview() {
                             class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
+            </div>
+
+                <div>
+                    <span
+                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete
+                    </span>
+                </div> 
+
+        </div>        
+                    
+        `
+
+        filterSection.appendChild(div)
+    }
+}
+
+
+function renderReject() {
+    filterSection.innerHTML = ''
+
+    if (rejectedList.length == 0) {
+        filterSection.innerHTML = `
+        <div id="no-jobs" class="text-center justify-self-center w-full border h bg-white border-[#E6E7E9] border-dashed py-[110px] rounded-2xl">
+                <img class="justify-self-center" src="./jobs.png" alt="">
+                <p class="text-[24px]  text-[#002C5C] font-semibold">No jobs available</p>
+                <p class="text-[#64748B]">Check back soon for new job opportunities</p>
+            </div>
+        `
+    }
+
+    for (let reject of rejectedList) {
+        console.log(reject)
+        let div = document.createElement('div')
+        div.className = 'flex justify-between border border-[#E6E7E9] rounded-lg p-6 '
+        div.innerHTML = `
+        <div class= "flex justify-between w-full">
+            <div class="space-y-5">
+                    <!-- part 1 -->
+                    <div>
+                        <p class="company-name text-[18px] font-semibold text-[#002C5C]">${reject.companyName}</p>
+                        <p class="position text-[#64748B]">${reject.position}</p>
+                    </div>
+                    <!-- part 2 -->
+                    <div>
+                        <p class="work text-[#64748B]">${reject.work}</p>
+                    </div>
+                    <!-- part 3 -->
+                    <div>
+                        <p class="status-bar bg-[#EEF4FF] px-3 py-2 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
+                            ${reject.statusBar}
+                        </p>
+                        <p class="note">${reject.note}</p>
+                    </div>
+
+                    <!-- part 4 -->
+                    <div>
+                        <button
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
+                        </button>
+
+                        <button
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
+                        </button>
+                    </div>
+            </div>
+
+                <div>
+                    <span
+                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete
+                    </span>
+                </div> 
+
+        </div>        
                     
         `
 
