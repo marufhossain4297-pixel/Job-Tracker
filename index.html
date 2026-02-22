@@ -21,6 +21,14 @@
         * {
             font-family: "Geist", sans-serif;
         }
+        .header-cards-texts-div{
+            transition: all 0.19s;
+        }
+        .header-cards-texts-div:hover{
+            cursor: pointer;
+            transform: translateY(-8px);
+            box-shadow: 4px 6px -1px rgba(0, 0, 0,)
+        }
     </style>
 </head>
 
@@ -28,17 +36,17 @@
     <header class="mt-[60px]">
         <h1 class="text-[32px] font-bold text-[#002C5C]">Job Application Tracker</h1>
         <div class="header-cards grid grid-cols-3 gap-4 mt-5 mb-[30px]">
-            <div class="header-cards-texts-div bg-white p-5 rounded-lg">
+            <div class="header-cards-texts-div bg-white p-5 rounded-lg hover:border border-[#3b82f6]">
                 <p class="header-cards-title text-[14px] font-medium">Total</p>
                 <p id="total" class="header-cards-count text-[24px] font-bold">0</p>
             </div>
 
-            <div class="header-cards-texts-div bg-white p-5 rounded-lg">
+            <div class="header-cards-texts-div bg-white p-5 rounded-lg hover:border border-[#10B981]">
                 <p class="header-cards-title text-[14px] font-medium">Interview</p>
                 <p id="interview" class="header-cards-count1 text-[24px] font-bold text-[#10B981]">0</p>
             </div>
 
-            <div class="header-cards-texts-div bg-white p-5 rounded-lg">
+            <div class="header-cards-texts-div hover:border border-[#EF4444] bg-white p-5 rounded-lg">
                 <p class="header-cards-count text-[14px] font-medium">Rejected</p>
                 <p id="rejected" class="header-cards-count2 text-[24px] font-bold text-[#EF4444]">0</p>
             </div>
@@ -47,7 +55,7 @@
     </header>
     <!--  -->
     <div class=" border-b border-[#E6E7E9] mb-[30px]"></div>
-
+    
     <main>
         <div class="flex justify-between items-center">
             <h3 class="main-title text-[20px] mb-6 font-bold text-[#002C5C]">Available Jobs</h3>
@@ -65,6 +73,14 @@
                 class="pt-2.5 pb-2.5 pr-8 pl-8 border sm: mt-5 border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer" onclick="toggleStyle('rejected-btn')">Rejected
             </button>
         </div>
+
+        <section id="filter-section" class="hidden space-y-9">
+            <div id="no-jobs" class="text-center justify-self-center w-full hidden border  bg-white border-[#E6E7E9] border-dashed py-[110px]">
+                <img class="justify-self-center" src="./jobs.png" alt="">
+                <p class="text-[24px]  text-[#002C5C] font-semibold">No jobs available</p>
+                <p class="text-[#64748B]">Check back soon for new job opportunities</p>
+            </div>
+        </section>
 
         <!-- cards -->
         <section id="all-card" class="space-y-9">
@@ -94,11 +110,11 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
                 </div>
@@ -127,18 +143,17 @@
                         <p class="status-bar bg-[#EEF4FF] px-3 py-2 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
                             NOT APPLIED
                         </p>
-                        <p class="note">Create stunning web experiences for high-profile clients. Must have portfolio
-                            and experience with modern web design trends.</p>
+                        <p class="note">Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.</p>
                     </div>
 
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
                         </button>
                     </div>
                 </div>
@@ -167,18 +182,17 @@
                         <p class="status-bar bg-[#EEF4FF] px-3 py-2 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
                             NOT APPLIED
                         </p>
-                        <p class="note">Transform complex data into compelling visualizations. Required skills: D3.js,
-                            React, and strong analytical thinking.</p>
+                        <p class="note">Transform complex data into compelling visualizations. Required skills: D3.js, React, and strong analytical thinking.</p>
                     </div>
 
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
                         </button>
                     </div>
                 </div>
@@ -214,11 +228,11 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
                         </button>
                     </div>
                 </div>
@@ -254,11 +268,11 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
                         </button>
                     </div>
                 </div>
@@ -294,11 +308,11 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
                         </button>
                     </div>
                 </div>
@@ -334,11 +348,11 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
                         </button>
                     </div>
                 </div>
@@ -375,11 +389,11 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
                         </button>
                     </div>
                 </div>
