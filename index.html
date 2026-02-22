@@ -28,46 +28,46 @@
     <header class="mt-[60px]">
         <h1 class="text-[32px] font-bold text-[#002C5C]">Job Application Tracker</h1>
         <div class="header-cards grid grid-cols-3 gap-4 mt-5 mb-[30px]">
-            <div class="header-cards-texts-parent-div">
-                <div class="header-cards-texts-div bg-white p-5 rounded-lg">
-                    <p class="header-cards-title text-[14px] font-medium">Total</p>
-                    <h2 class="header-cards-count text-[24px] font-bold">0</h2>
-                </div>
+            <div class="header-cards-texts-div bg-white p-5 rounded-lg">
+                <p class="header-cards-title text-[14px] font-medium">Total</p>
+                <p id="total" class="header-cards-count text-[24px] font-bold">0</p>
             </div>
 
-            <div class="header-cards-texts-parent-div">
-                <div class="header-cards-texts-div bg-white p-5 rounded-lg">
-                    <p class="header-cards-title text-[14px] font-medium">Interview</p>
-                    <h2 class="header-cards-count1 text-[24px] font-bold text-[#10B981]">0</h2>
-                </div>
+            <div class="header-cards-texts-div bg-white p-5 rounded-lg">
+                <p class="header-cards-title text-[14px] font-medium">Interview</p>
+                <p id="interview" class="header-cards-count1 text-[24px] font-bold text-[#10B981]">0</p>
             </div>
 
-            <div class="header-cards-texts-parent-div">
-                <div class="header-cards-texts-div bg-white p-5 rounded-lg">
-                    <p class="header-cards-count text-[14px] font-medium">Rejected</p>
-                    <h2 class="header-cards-count2 text-[24px] font-bold text-[#EF4444]">0</h2>
-                </div>
+            <div class="header-cards-texts-div bg-white p-5 rounded-lg">
+                <p class="header-cards-count text-[14px] font-medium">Rejected</p>
+                <p id="rejected" class="header-cards-count2 text-[24px] font-bold text-[#EF4444]">0</p>
             </div>
+
         </div>
     </header>
+    <!--  -->
     <div class=" border-b border-[#E6E7E9] mb-[30px]"></div>
 
     <main>
-        <h3 class="main-title text-[20px] mb-6 font-bold text-[#002C5C]">Available Jobs</h3>
-        <!-- bordeer buttons -->
+        <div class="flex justify-between items-center">
+            <h3 class="main-title text-[20px] mb-6 font-bold text-[#002C5C]">Available Jobs</h3>
+            <p id="available-jobs" class="font-medium text-[#64748B]"><span id="available-jobs-value">0</span> Jobs</p>
+        </div>
+        <!-- buttons -->
         <div class="mb-4">
-            <button id="btn-1"
-                class="pt-2.5 mr-2 pb-2.5 pr-8 pl-8 bg-[#3B82F6] text-white rounded-sm text-[14px] font-semibold hover:cursor-pointer">All
+            <button id="all-btn"
+                class="pt-2.5 mr-2 pb-2.5 pr-8 pl-8 bg-[#3B82F6] text-white rounded-sm text-[14px] font-semibold hover:cursor-pointer" onclick="toggleStyle('all-btn')">All
             </button>
-            <button id="btn-2"
-                class="pt-2.5 mr-2 pb-2.5 pr-8 pl-8 border border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer">Interview
+            <button id="interview-btn"
+                class="pt-2.5 mr-2 pb-2.5 pr-8 pl-8 border border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer" onclick="toggleStyle('interview-btn')">Interview
             </button>
-            <button id="btn-3"
-                class="pt-2.5 pb-2.5 pr-8 pl-8 border sm: mt-5 border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer">Rejected
+            <button id="rejected-btn"
+                class="pt-2.5 pb-2.5 pr-8 pl-8 border sm: mt-5 border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer" onclick="toggleStyle('rejected-btn')">Rejected
             </button>
         </div>
 
-        <section class="space-y-9">
+        <!-- cards -->
+        <section id="all-card" class="space-y-9">
 
             <!-- card 1 -->
             <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6">
