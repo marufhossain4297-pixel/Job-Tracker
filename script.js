@@ -5,11 +5,12 @@ let currentStatus = 'all-btn'
 const filterSection = document.getElementById('filter-section')
 const noJobs = document.getElementById('no-jobs')
 
+
 let total = document.getElementById('total');
 let interview = document.getElementById('interview');
 let rejected = document.getElementById('rejected');
 let availableJobs = document.getElementById('available-jobs-value')
-
+let totalJobsValue = document.getElementById('total-jobs-value');
 
 const allBtn = document.getElementById('all-btn')
 const interviewBtn = document.getElementById('interview-btn')
@@ -20,17 +21,34 @@ const mainContainer = document.querySelector('main')
 const allCardSection = document.getElementById('all-card');
 console.log(allCardSection.children.length)
 function calculateCount() {
-    total.innerText = allCardSection.children.length;
-    availableJobs.innerText = allCardSection.children.length;
-    interview.innerText = interviewList.length
-    rejected.innerText = rejectedList.length
+
+    const totalJobs = allCardSection.children.length;
+
+    total.innerText = totalJobs;
+    interview.innerText = interviewList.length;
+    rejected.innerText = rejectedList.length;
+
+    let currentTabCount = totalJobs;
+
+    if (currentStatus === 'interview-btn') {
+        currentTabCount = interviewList.length;
+    }
+    else if (currentStatus === 'rejected-btn') {
+        currentTabCount = rejectedList.length;
+    }
+
+    availableJobs.innerText = currentTabCount;
+    totalJobsValue.innerText = totalJobs;
 }
 calculateCount()
+
+
 
 function toggleStyle(id) {
     allBtn.classList.add('bg-white', 'text-[#64748B]')
     interviewBtn.classList.add('bg-white', 'text-[#64748B]')
     rejectedBtn.classList.add('bg-white', 'text-[#64748B]')
+
 
 
     allBtn.classList.remove('bg-[#3B82F6]', 'text-white')
@@ -39,7 +57,6 @@ function toggleStyle(id) {
 
     const selected = document.getElementById(id)
     currentStatus = id
-
 
     selected.classList.remove('bg-white', 'text-[#64748B]')
     selected.classList.add('bg-[#3B82F6]', 'text-white')
@@ -58,6 +75,8 @@ function toggleStyle(id) {
         filterSection.classList.remove('hidden')
         renderReject()
     }
+
+    calculateCount();
 }
 
 mainContainer.addEventListener('click', function (event) {
@@ -68,13 +87,13 @@ mainContainer.addEventListener('click', function (event) {
         const work = parentNode.querySelector('.work').innerText
         const statusBar = parentNode.querySelector('.status-bar').innerText
         const note = parentNode.querySelector('.note').innerText
-        const statusEl = parentNode.querySelector('.status-bar')
-        statusEl.innerText = 'INTERVIEW'
+        const statusIn = parentNode.querySelector('.status-bar')
+        statusIn.innerText = 'INTERVIEW'
         // remove old colors
-        statusEl.classList.remove('bg-[#EEF4FF]', 'bg-red-100', 'text-red-600', 'px-3', 'py-2')
+        statusIn.classList.remove('bg-[#EEF4FF]', 'bg-red-100', 'text-red-600', 'px-3', 'py-2', 'border-[#EF4444]')
 
         // add green
-        statusEl.classList.add('bg-[#EBFDF5]', 'text-[#11B981]', 'border', 'border-[#11B981]','w-[68.945px]', 'text-center', 'py-[4px]', 'font-semibold')
+        statusIn.classList.add('bg-[#EBFDF5]', 'text-[#11B981]', 'border', 'border-[#11B981]', 'w-[68.945px]', 'text-center', 'py-[4px]', 'font-semibold')
         // console.log(companyName, position, work, statusBar, note)
 
 
@@ -100,22 +119,21 @@ mainContainer.addEventListener('click', function (event) {
         }
     }
 
-
     else if (event.target.classList.contains('reject-btn')) {
         const companyName = parentNode.querySelector('.company-name').innerText
         const position = parentNode.querySelector('.position').innerText
         const work = parentNode.querySelector('.work').innerText
         const statusBar = parentNode.querySelector('.status-bar').innerText
         const note = parentNode.querySelector('.note').innerText
-        const statusEl = parentNode.querySelector('.status-bar')
+        const statusRe = parentNode.querySelector('.status-bar')
 
-        statusEl.innerText = 'REJECTED'
+        statusRe.innerText = 'REJECTED'
 
         // remove old colors
-        statusEl.classList.remove('bg-[#EEF4FF]', 'bg-green-100', 'text-green-600')
+        statusRe.classList.remove('bg-[#EEF4FF]', 'bg-green-100', 'text-green-600')
 
         // add red
-        statusEl.classList.add('bg-red-100', 'text-red-600')
+        statusRe.classList.add('bg-red-100', 'text-red-600', 'border', 'border-[#EF4444]')
         // console.log(companyName, position, work, statusBar, note)
 
 
@@ -140,12 +158,23 @@ mainContainer.addEventListener('click', function (event) {
             renderInterview()
         }
     }
+    else if (event.target.closest('.delete-btn')) {
+        const card = event.target.closest('.flex.justify-between');
+
+        const name = card.querySelector('.company-name').innerText;
+        alert('Are you sure you want to delete this application?' + name)
+
+        interviewList = interviewList.filter(item => item.companyName !== name);
+        rejectedList = rejectedList.filter(item => item.companyName !== name);
+
+        card.parentNode.removeChild(card);
+
+        calculateCount();
+        if (currentStatus === 'interview-btn') renderInterview();
+        if (currentStatus === 'rejected-btn') renderReject();
+    }
 })
 
-
-// if (filterSection != '') {
-//     noJobs.classList.remove('hidden')
-// }
 
 function renderInterview() {
     filterSection.innerHTML = ''
@@ -164,7 +193,7 @@ function renderInterview() {
         div.className = 'flex justify-between border border-[#E6E7E9] rounded-lg p-6 '
         div.innerHTML = `
         <div class= "flex justify-between w-full">
-            <div class="space-y-5 ">
+            <div class="space-y-5 bg-whte">
                     <!-- part 1 -->
                     <div>
                         <p class="company-name text-[18px] font-semibold text-[#002C5C]">${interview.companyName}</p>
@@ -176,9 +205,7 @@ function renderInterview() {
                     </div>
                     <!-- part 3 -->
                     <div>
-                        <p class="status-bar bg-[#EEF4FF] px-3 py-2 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
-                            ${interview.statusBar}
-                        </p>
+                        <p class="status-bar bg-[#EBFDF5] text-[#11B981] border border-[#11B981] w-[113px] text-center py-1 font-semibold text-[14px] rounded-sm mb-2">${interview.statusBar}</p>
                         <p class="note">${interview.note}</p>
                     </div>
 
@@ -196,7 +223,7 @@ function renderInterview() {
 
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete
                     </span>
                 </div> 
 
@@ -240,7 +267,7 @@ function renderReject() {
                     </div>
                     <!-- part 3 -->
                     <div>
-                        <p class="status-bar bg-[#EEF4FF] px-3 py-2 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
+                        <p class="status-bar bg-red-100 text-red-600 border border-[#EF4444] w-[113px] text-center py-1 font-semibold text-[14px] rounded-sm mb-2">
                             ${reject.statusBar}
                         </p>
                         <p class="note">${reject.note}</p>
@@ -260,7 +287,7 @@ function renderReject() {
 
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete
                     </span>
                 </div> 
 

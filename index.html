@@ -13,40 +13,42 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
     <!-- link favicon -->
-     <link rel="shortcut icon" href="./images/job-tracking.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/job-tracking.png" type="image/x-icon">
     <title>Job Tracker</title>
     <style>
         * {
             font-family: "Geist", sans-serif;
         }
-        .header-cards-texts-div{
-            transition: all 0.19s;
+
+        .header-cards-texts-div {
+            transition: all 0.3s;
         }
-        .header-cards-texts-div:hover{
+
+        .header-cards-texts-div:hover {
             cursor: pointer;
             transform: translateY(-8px);
-            box-shadow: 4px 6px -1px rgba(0, 0, 0,)
+            box-shadow: 0px 0px 15px 0px gray;
         }
     </style>
 </head>
 
-<body class="w-[80%] mx-auto">
+<body class="w-[80%] mx-auto bg-linear-t from-[#30cfd0] to-[#330867] ">
     <header class="mt-[60px]">
         <h1 class="text-[32px] font-bold text-[#002C5C]">Job Application Tracker</h1>
         <div class="header-cards grid grid-cols-3 gap-4 mt-5 mb-[30px]">
-            <div class="header-cards-texts-div bg-white p-5 rounded-lg hover:border border-[#3b82f6]">
+            <div class="header-cards-texts-div bg-white p-5 rounded-[17px] hover:border border-[#3b82f6]">
                 <p class="header-cards-title text-[14px] font-medium">Total</p>
                 <p id="total" class="header-cards-count text-[24px] font-bold">0</p>
             </div>
 
-            <div class="header-cards-texts-div bg-white p-5 rounded-lg hover:border border-[#10B981]">
+            <div class="header-cards-texts-div bg-white p-5 rounded-[17px] hover:border border-[#10B981]">
                 <p class="header-cards-title text-[14px] font-medium">Interview</p>
                 <p id="interview" class="header-cards-count1 text-[24px] font-bold text-[#10B981]">0</p>
             </div>
 
-            <div class="header-cards-texts-div hover:border border-[#EF4444] bg-white p-5 rounded-lg">
+            <div class="header-cards-texts-div hover:border border-[#EF4444] bg-white p-5 rounded-[17px]">
                 <p class="header-cards-count text-[14px] font-medium">Rejected</p>
                 <p id="rejected" class="header-cards-count2 text-[24px] font-bold text-[#EF4444]">0</p>
             </div>
@@ -55,34 +57,38 @@
     </header>
     <!--  -->
     <div class=" border-b border-[#E6E7E9] mb-[30px]"></div>
-    
+
     <main>
         <div class="flex justify-between items-center">
             <h3 class="main-title text-[20px] mb-6 font-bold text-[#002C5C]">Available Jobs</h3>
-            <p id="available-jobs" class="font-medium text-[#64748B]"><span id="available-jobs-value">0</span> Jobs</p>
+            <p id="available-jobs" class="font-medium text-[#64748B]"><span id="available-jobs-value">0</span> of
+                <span id="total-jobs-value">0</span> Jobs
+            </p>
         </div>
         <!-- buttons -->
         <div class="mb-4">
             <button id="all-btn"
-                class="pt-2.5 mr-2 pb-2.5 pr-8 pl-8 bg-[#3B82F6] text-white rounded-sm text-[14px] font-semibold hover:cursor-pointer" onclick="toggleStyle('all-btn')">All
+                class="pt-2.5 mr-2 pb-2.5 pr-8 pl-8 bg-[#3B82F6] text-white rounded-sm text-[14px] font-semibold hover:cursor-pointer"
+                onclick="toggleStyle('all-btn')">All
             </button>
             <button id="interview-btn"
-                class="pt-2.5 mr-2 pb-2.5 pr-8 pl-8 border border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer" onclick="toggleStyle('interview-btn')">Interview
+                class="pt-2.5 mr-2 pb-2.5 pr-8 pl-8 border border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer"
+                onclick="toggleStyle('interview-btn')">Interview
             </button>
             <button id="rejected-btn"
-                class="pt-2.5 pb-2.5 pr-8 pl-8 border sm: mt-5 border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer" onclick="toggleStyle('rejected-btn')">Rejected
+                class="pt-2.5 pb-2.5 pr-8 pl-8 border sm: mt-5 border-[#f1f2f4FF] rounded-sm text-[14px] font-semibold hover:cursor-pointer"
+                onclick="toggleStyle('rejected-btn')">Rejected
             </button>
         </div>
 
-        <section id="filter-section" class="hidden space-y-9">
-            
+        <section id="filter-section" class="hidden space-y-9 mb-[30px]">
+
         </section>
 
         <!-- cards -->
         <section id="all-card" class="space-y-9">
-
             <!-- card 1 -->
-            <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6 bg-white">
+            <div id="card1" class="flex justify-between border border-[#E6E7E9] rounded-[17px] p-6 bg-white">
                 <!-- main part 1 -->
                 <div class="space-y-5">
                     <!-- part 1 -->
@@ -96,7 +102,7 @@
                     </div>
                     <!-- part 3 -->
                     <div>
-                        <p class="status-bar bg-[#EEF4FF] px-3 py-2 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
+                        <p class="status-bar bg-[#EEF4FF] px-3 py-1 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
                             NOT APPLIED
                         </p>
                         <p class="note">Build cross-platform mobile applications using React Native. Work on products
@@ -117,12 +123,14 @@
                 <!-- main btn 2 -->
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete</span>
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">
+                        delete
+                    </span>
                 </div>
             </div>
 
             <!-- card 2 -->
-            <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6 bg-white">
+            <div class="flex justify-between border border-[#E6E7E9] rounded-[17px] p-6 bg-white">
                 <!-- main part 1 -->
                 <div class="space-y-5">
                     <!-- part 1 -->
@@ -139,29 +147,32 @@
                         <p class="status-bar bg-[#EEF4FF] px-3 py-2 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
                             NOT APPLIED
                         </p>
-                        <p class="note">Create stunning web experiences for high-profile clients. Must have portfolio and experience with modern web design trends.</p>
+                        <p class="note">Create stunning web experiences for high-profile clients. Must have portfolio
+                            and experience with modern web design trends.</p>
                     </div>
 
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
                 </div>
                 <!-- main btn 2 -->
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete</span>
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">
+                        delete
+                    </span>
                 </div>
             </div>
 
             <!-- card 3 -->
-            <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6 bg-white">
+            <div class="flex justify-between border border-[#E6E7E9] rounded-[17px] p-6 bg-white">
                 <!-- main part 1 -->
                 <div class="space-y-5">
                     <!-- part 1 -->
@@ -178,29 +189,32 @@
                         <p class="status-bar bg-[#EEF4FF] px-3 py-2 text-[14px] rounded-sm w-[113px] mb-2 font-medium">
                             NOT APPLIED
                         </p>
-                        <p class="note">Transform complex data into compelling visualizations. Required skills: D3.js, React, and strong analytical thinking.</p>
+                        <p class="note">Transform complex data into compelling visualizations. Required skills: D3.js,
+                            React, and strong analytical thinking.</p>
                     </div>
 
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
                 </div>
                 <!-- main btn 2 -->
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete</span>
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">
+                        delete
+                    </span>
                 </div>
             </div>
 
             <!-- card 4 -->
-            <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6 bg-white">
+            <div class="flex justify-between border border-[#E6E7E9] rounded-[17px] p-6 bg-white">
                 <!-- main part 1 -->
                 <div class="space-y-5">
                     <!-- part 1 -->
@@ -224,23 +238,25 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
                 </div>
                 <!-- main btn 2 -->
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete</span>
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">
+                        delete
+                    </span>
                 </div>
             </div>
 
             <!-- card 5 -->
-            <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6 bg-white">
+            <div class="flex justify-between border border-[#E6E7E9] rounded-[17px] p-6 bg-white">
                 <!-- main part 1 -->
                 <div class="space-y-5">
                     <!-- part 1 -->
@@ -264,23 +280,25 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
                 </div>
                 <!-- main btn 2 -->
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete</span>
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">
+                        delete
+                    </span>
                 </div>
             </div>
 
             <!-- card 6 -->
-            <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6 bg-white">
+            <div class="flex justify-between border border-[#E6E7E9] rounded-[17px] p-6 bg-white">
                 <!-- main part 1 -->
                 <div class="space-y-5">
                     <!-- part 1 -->
@@ -304,23 +322,25 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
                 </div>
                 <!-- main btn 2 -->
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete</span>
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">
+                        delete
+                    </span>
                 </div>
             </div>
 
             <!-- card 7 -->
-            <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6 bg-white">
+            <div class="flex justify-between border border-[#E6E7E9] rounded-[17px] p-6 bg-white">
                 <!-- main part 1 -->
                 <div class="space-y-5">
                     <!-- part 1 -->
@@ -344,23 +364,25 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
                 </div>
                 <!-- main btn 2 -->
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete</span>
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">
+                        delete
+                    </span>
                 </div>
             </div>
 
             <!-- card 8 -->
-            <div class="flex justify-between border border-[#E6E7E9] rounded-lg p-6 mb-16 bg-white">
+            <div class="flex justify-between border border-[#E6E7E9] rounded-[17px] p-6 mb-16 bg-white">
                 <!-- main part 1 -->
                 <div class="space-y-5">
                     <!-- part 1 -->
@@ -385,18 +407,20 @@
                     <!-- part 4 -->
                     <div>
                         <button
-                            class="interview-btn btn font-semibold text-[14px] mr-2 text-[#10B981] border border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm">INTERVIEW
+                            class="interview-btn btn font-semibold text-[14px] mr-2 md:bg-transparent md:text-[#10B981] md:border md:border-[#10B981] hover:bg-[#10B981] hover:text-white hover:cursor-pointer px-3 py-2 rounded-sm bg-[#10B981] text-white">INTERVIEW
                         </button>
 
                         <button
-                            class="reject-btn btn font-semibold text-[14px] text-[#EF4444] border border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] hover:text-white px-3 py-2 rounded-sm">REJECTED
+                            class="reject-btn font-semibold btn text-[14px] md:text-[#EF4444] md:border md:border-[#EF4444] hover:cursor-pointer hover:bg-[#EF4444] md:bg-transparent hover:text-white px-3 py-2 rounded-sm bg-[#EF4444] text-white">REJECTED
                         </button>
                     </div>
                 </div>
                 <!-- main btn 2 -->
                 <div>
                     <span
-                        class="material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">delete</span>
+                        class="delete-btn material-symbols-outlined border btn border-[#E6E7E9] hover:bg-[#EF4444] hover:text-white rounded-full p-2 hover:cursor-pointer">
+                        delete
+                    </span>
                 </div>
             </div>
 
